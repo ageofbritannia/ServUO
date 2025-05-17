@@ -73,12 +73,16 @@ namespace Server.Engines.Quests
             foreach (Item item2 in eable2)
             {
                 if (item2 is CreepyWeeds)
-                    list.Add(item2);
-            }
+				{
+					list.Add(item2);
+				}
+			}
 
             foreach (Item item in list)
-                item.Delete();
-        }
+			{
+				item.Delete();
+			}
+		}
 
         public override void Serialize(GenericWriter writer)
         {
@@ -120,15 +124,15 @@ namespace Server.Engines.Quests
             Race = Race.Gargoyle;
 
             Hue = 0x840C;
-            HairItemID = 0x2045;
-            HairHue = 0x453;
+            //HairItemID = 0x2045;
+            //HairHue = 0x453;
         }
 
         public override void InitOutfit()
         {
-            SetWearable(new Backpack());
-            SetWearable(new Sandals(), 0x74A, 1);
-            SetWearable(new Robe(), 0x498, 1);
+            SetWearable(new GargishClothArms());
+            SetWearable(new GargishClothKilt());
+            //SetWearable(new Robe(), 0x498, 1);
         }
 
         public override void Serialize(GenericWriter writer)
