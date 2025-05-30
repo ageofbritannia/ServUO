@@ -11,6 +11,7 @@ namespace Server.Spells.Necromancy
             9031,
             Reagent.NoxCrystal,
             Reagent.PigIron);
+        
         public WraithFormSpell(Mobile caster, Item scroll)
             : base(caster, scroll, m_Info)
         {
@@ -19,7 +20,7 @@ namespace Server.Spells.Necromancy
         public override TimeSpan CastDelayBase => TimeSpan.FromSeconds(2.25);
         public override double RequiredSkill => 20.0;
         public override int RequiredMana => 17;
-        public override int Body => Caster.Female ? 747 : 748;
+        public override int Body => Caster.Female ? 748 : 747; // Fixed: Swapped Body IDs for male/female wraith forms
         public override int Hue => Caster.Female ? 0 : 0x4001;
         public override int PhysResistOffset => +15;
         public override int FireResistOffset => -5;
@@ -29,9 +30,11 @@ namespace Server.Spells.Necromancy
         public override void DoEffect(Mobile m)
         {
             if (m is PlayerMobile)
-                ((PlayerMobile)m).IgnoreMobiles = true;
+			{
+				((PlayerMobile)m).IgnoreMobiles = true;
+			}
 
-            m.PlaySound(0x17F);
+			m.PlaySound(0x17F);
             m.FixedParticles(0x374A, 1, 15, 9902, 1108, 4, EffectLayer.Waist);
 
             int manadrain = Math.Max(8, 5 + (int)(0.16 * m.Skills.SpiritSpeak.Value));
@@ -42,9 +45,11 @@ namespace Server.Spells.Necromancy
         public override void RemoveEffect(Mobile m)
         {
             if (m is PlayerMobile && m.IsPlayer())
-                ((PlayerMobile)m).IgnoreMobiles = false;
+			{
+				((PlayerMobile)m).IgnoreMobiles = false;
+			}
 
-            BuffInfo.RemoveBuff(m, BuffIcon.WraithForm);
+			BuffInfo.RemoveBuff(m, BuffIcon.WraithForm);
         }
     }
 }
